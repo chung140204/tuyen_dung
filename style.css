@@ -277,7 +277,9 @@ ul {
 
 /* CTA */
 .apply-box {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #e60023;
     padding: 10px 20px;
     border-radius: 6px;
