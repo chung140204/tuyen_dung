@@ -863,7 +863,6 @@ ul {
     font-size: 2.5rem;
     font-weight: 900;
     margin: 0;
-    white-space: nowrap;
 }
 
 .training-sub-title {
@@ -871,7 +870,6 @@ ul {
     font-size: 1.8rem;
     font-weight: 900;
     margin: 0;
-    white-space: nowrap;
 }
 
 .title-line-red {
@@ -945,10 +943,21 @@ ul {
 
     .training-main-title {
         font-size: 1.8rem;
+        white-space: normal;
     }
 
     .training-sub-title {
         font-size: 1.2rem;
+        white-space: normal;
+    }
+
+    .training-title-row {
+        flex-wrap: wrap;
+    }
+
+    .title-line-red {
+        display: none;
+        /* Hide lines on small screens to save space */
     }
 }
 
@@ -1210,7 +1219,8 @@ ul {
 }
 
 .cert-visual {
-    flex: 0 0 45%;
+    flex: 0 0 55%;
+    /* Tăng không gian cho box chứa ảnh lên 55% */
     position: relative;
     display: flex;
     justify-content: flex-end;
@@ -1219,7 +1229,11 @@ ul {
 
 .woman-pointing {
     width: 100%;
-    max-width: 500px;
+    max-width: 750px;
+    /* Tăng max-width để kéo dài ảnh theo chiều ngang */
+    height: 800px;
+    /* Tăng chiều cao để kéo dài ảnh theo chiều dọc */
+    object-fit: cover;
     z-index: 5;
     position: relative;
 }
@@ -1615,10 +1629,12 @@ ul {
 
 .footer-logo-image {
     background: white;
-    padding: 35px 65px; /* Tiếp tục làm hộp trắng to ra */
+    padding: 35px 65px;
+    /* Tiếp tục làm hộp trắng to ra */
     border-radius: 20px;
-    height: 220px; /* To vượt trội để đáp ứng yêu cầu của bạn */
-    box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+    height: 220px;
+    /* To vượt trội để đáp ứng yêu cầu của bạn */
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s;
 }
 
@@ -1897,3 +1913,49 @@ ul {
 .toggle-hq:hover {
     color: var(--white);
 }
+
+/* ----- Custom Toast Notification ----- */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: #fff;
+    color: #333;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 5px solid #BE1E2D;
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-weight: 500;
+    min-width: 300px;
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.error {
+    border-left-color: #f44336;
+}
+
+.toast.success {
+    border-left-color: #4caf50;
+}
+
+.toast i {
+    font-size: 1.2rem;
+}
+
+.toast.success i { color: #4caf50; }
+.toast.error i { color: #f44336; }

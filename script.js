@@ -2,6 +2,25 @@ import { createClient } from '@supabase/supabase-js'
 
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+    const toastContainer = document.getElementById('toastContainer');
+
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+        toast.innerHTML = `<i class="${icon}"></i><span>${message}</span>`;
+        toastContainer.appendChild(toast);
+
+        // Force reflow for animation
+        toast.offsetHeight;
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 400);
+        }, 5000);
+    }
+
 
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -38,9 +57,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if(form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+            const formData = new FormData(form);
+            const locationsSelected = formData.getAll('location');
+            if (locationsSelected.length === 0) {
+                showToast('Vui lòng chọn ít nhất một nơi làm việc.', 'error');
+                return;
+            }
+
             if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-                alert('Lỗi: Cấu hình API chưa hoàn thiện.');
+                showToast('Lỗi: Cấu hình API chưa hoàn thiện.', 'error');
                 return;
             }
 
@@ -98,11 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
-                alert('Cảm ơn bạn đã ứng tuyển! Chúng tôi đã nhận được thông tin và sẽ liên hệ lại sớm nhất.');
+                showToast('Cảm ơn bạn đã ứng tuyển! Chúng tôi đã nhận được thông tin và sẽ liên hệ lại sớm nhất.', 'success');
                 form.reset();
             } catch (error) {
                 console.error('Error submitting form:', error.message);
-                alert('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại sau hoặc liên hệ Hotline.');
+                showToast('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại sau hoặc liên hệ Hotline.', 'error');
             } finally {
                 // Restore button state
                 submitBtn.innerText = originalBtnText;
