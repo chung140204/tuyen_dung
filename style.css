@@ -655,22 +655,22 @@ ul {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    gap: 20px;
 }
 
 .opp-title-white {
     color: var(--white);
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 900;
     text-transform: uppercase;
     white-space: nowrap;
-    margin-right: 20px;
     font-family: 'Roboto', sans-serif;
     letter-spacing: 1px;
 }
 
 .opp-title-gold {
     color: var(--secondary-gold);
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     font-weight: 900;
     text-transform: uppercase;
     white-space: nowrap;
@@ -709,7 +709,7 @@ ul {
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 4px;
-    padding: 40px 25px;
+    padding: 22px 16px;
     text-align: center;
     color: white;
     transition: var(--transition-normal);
@@ -725,17 +725,17 @@ ul {
 }
 
 .card-red .icon-ring {
-    width: 80px;
-    height: 80px;
+    width: 56px;
+    height: 56px;
     background: var(--secondary-gold);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     color: #BE1E2D;
-    margin: 0 auto 30px;
-    border: 4px solid #BE1E2D;
+    margin: 0 auto 16px;
+    border: 3px solid #BE1E2D;
     box-shadow: 0 0 0 1.5px var(--secondary-gold);
     transition: var(--transition-normal);
 }
@@ -745,8 +745,8 @@ ul {
 }
 
 .card-red h4 {
-    font-size: 1.35rem;
-    margin-bottom: 20px;
+    font-size: 1.05rem;
+    margin-bottom: 10px;
     font-weight: 900;
     letter-spacing: 0.5px;
     color: white;
@@ -754,8 +754,8 @@ ul {
 
 .card-red p {
     color: white;
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.88rem;
+    line-height: 1.6;
 }
 
 /* ----- Benefits ----- */
@@ -957,8 +957,8 @@ ul {
     }
 
     .title-line-red {
-        display: none;
-        /* Hide lines on small screens to save space */
+        display: block;
+        flex: 1;
     }
 }
 
@@ -1019,7 +1019,7 @@ ul {
 
 .title-line-black {
     height: 6px;
-    background-color: #111;
+    background-color: var(--secondary-gold);
     flex-grow: 1;
 }
 
@@ -1270,7 +1270,8 @@ ul {
     }
 
     .title-line-black {
-        display: none;
+        display: block;
+        flex: 1;
     }
 
     .registration-box {
@@ -1817,76 +1818,433 @@ ul {
     /* Hide decorative floating squares to prevent overflow */
 }
 
-@media (max-width: 768px) {
-    .nav {
-        display: none;
+/* =================================================
+   HAMBURGER MENU & MOBILE NAV
+   ================================================= */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1100;
+    margin-left: 12px;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #BE1E2D;
+    border-radius: 3px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(9.5px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9.5px) rotate(-45deg);
+}
+
+.mobile-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    z-index: 999;
+    border-top: 3px solid #BE1E2D;
+    transform: translateY(-10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav ul li {
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.mobile-nav ul li a {
+    display: block;
+    padding: 16px 24px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #222;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav ul li a:hover {
+    background: rgba(190, 30, 45, 0.05);
+    color: #BE1E2D;
+}
+
+.mobile-nav .mobile-cta {
+    background: #BE1E2D;
+    color: #fff !important;
+    text-align: center;
+    margin: 16px;
+    border-radius: 6px;
+    padding: 14px 24px !important;
+}
+
+.mobile-nav .mobile-cta:hover {
+    background: #9b1624 !important;
+    color: #fff !important;
+}
+
+body.nav-open {
+    overflow: hidden;
+}
+
+/* =================================================
+   GLOBAL OVERFLOW PREVENTION
+   ================================================= */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* =================================================
+   RESPONSIVE: MAX-WIDTH 992px (Tablet)
+   ================================================= */
+@media (max-width: 992px) {
+    /* Typography */
+    .banner-main-title { font-size: 4.5rem; }
+    .banner-sub-title  { font-size: 2.2rem; }
+    .stat-number       { font-size: 3rem; }
+
+    /* Grids */
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
-    /* Add burger menu later */
+    /* Hero section */
+    .hero-content,
+    .hero-new-container {
+        flex-direction: column;
+    }
+    .hero-new-left,
+    .hero-new-right,
+    .hero-video-area,
+    .hero-description {
+        width: 100%;
+        flex: 0 0 100%;
+        padding: 0;
+    }
+    .hero-new-title { padding-left: 0; }
+    .title-red   { font-size: 1.8rem; }
+    .title-black { font-size: 1.6rem; }
+    .hero-new-video-bg {
+        margin-bottom: 30px;
+        padding: 20px;
+    }
+    .hero-new-video-bg::before {
+        left: -50vw;
+        right: -50vw;
+    }
+
+    /* Certification */
+    .cert-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+    .cert-content  { padding: 40px 20px; }
+    .cert-list li  { text-align: left; }
+    .cert-image    { display: none; }
+    .cert-title-row { justify-content: center; }
+    .title-line-black { display: none; }
+    .registration-box { margin: 0 auto; }
+    .cert-visual  { flex: 0 0 auto; width: 100%; justify-content: center; }
+
+    /* Recruitment form */
+    .recruitment-layout {
+        flex-direction: column;
+    }
+    .recruitment-form-col,
+    .recruitment-photo-col {
+        width: 100%;
+        flex: 0 0 100%;
+    }
+    .form-wrapper {
+        width: 95%;
+        margin: -40px auto 20px auto;
+        padding: 30px 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        left: 0;
+    }
+    .recruitment-photo-col {
+        padding: 20px;
+        order: -1;
+    }
+    .recruitment-team-img {
+        height: auto;
+        max-height: 350px;
+        object-fit: cover;
+    }
+    .glass-deco { display: none; }
+
+    /* Footer */
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Badge */
+    .badge-large { font-size: 1.4rem; padding: 10px 20px; }
+}
+
+/* =================================================
+   RESPONSIVE: MAX-WIDTH 768px (Mobile)
+   ================================================= */
+@media (max-width: 768px) {
+    /* --- GLOBAL OVERFLOW LOCK --- */
+    html, body {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
+
+    /* --- HEADER --- */
+    .nav           { display: none; }
+    .header-action { display: none; }
+    .hamburger     { display: flex; }
+    .mobile-nav    { display: block; }
+
+    .header-container {
+        padding: 8px 16px;
+        justify-content: space-between;
+    }
+
+    .logo-image { height: 80px; }
+
+    /* --- BANNER --- */
+    .main-banner {
+        min-height: 420px;
+        padding: 60px 16px 80px;
+    }
+    .banner-sub-title  { font-size: 1.4rem; letter-spacing: 1px; margin-bottom: 4px; }
+    .banner-main-title { font-size: 2.8rem; letter-spacing: 2px; }
+    .badge-large       { font-size: 0.85rem; padding: 8px 12px; }
+    .badge-small       { font-size: 0.8rem; padding: 6px 12px; }
+    .btn-gold-gradient { font-size: 1rem; padding: 13px 28px; }
+
+    /* --- STATS --- */
+    .stats-box {
+        flex-direction: column;
+        padding: 20px 16px;
+        text-align: center;
+    }
+    .stat-divider   { width: 70%; height: 2px; margin: 16px auto; }
+    .stat-col       { padding: 0 8px; }
+    .stat-number    { font-size: 2.5rem; }
+
+    /* --- SECTION SPACING --- */
+    .hero-new,
+    .opportunities,
+    .benefits,
+    .training,
+    .certification,
+    .recruitment {
+        padding: 50px 0;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero-new-container { gap: 0; }
+    .hero-new-left,
+    .hero-new-right {
+        flex: 0 0 100%;
+        width: 100%;
+        padding: 0;
+    }
+    .hero-new-title  { padding-left: 0; margin-bottom: 0; }
+    .title-red,
+    .title-black {
+        font-size: 1.3rem;
+        white-space: normal !important;
+        word-break: break-word;
+    }
+    .hero-new-video-bg {
+        padding: 16px;
+        margin-bottom: 24px;
+    }
+    .hero-new-video-bg::before {
+        left: -16px;
+        right: -16px;
+    }
+    .hero-new-video-bg video {
+        width: 100% !important;
+        height: auto !important;
+    }
+    .hero-new-list li { font-size: 0.88rem; }
+
+    /* --- TITLE TYPOGRAPHY (GLOBAL — tất cả section main title = 1.5rem) --- */
+    .section-title h2  { font-size: 1.5rem; }
+    .section-title h3  { font-size: 0.9rem; }
+
+    /* Opportunities */
+    .opp-title-white {
+        font-size: 1.5rem;
+        white-space: normal !important;
+        word-break: break-word;
+    }
+    .opp-title-gold {
+        font-size: 0.9rem;
+        white-space: normal !important;
+        word-break: break-word;
+    }
+    .opp-title-row  { flex-wrap: wrap; gap: 6px; align-items: center; }
+    .opp-title-line { display: block; flex: 0 0 40px; width: 40px; max-width: 40px; }
+
+    /* --- GRIDS → 1 COLUMN --- */
     .grid-3,
     .grid-4,
     .footer-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    .section-title h2 {
-        font-size: 1.8rem;
+    /* --- CARDS --- */
+    /* Opportunities grid: 1 column, horizontal card layout */
+    .opportunities .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
-    .form-wrapper h2 {
-        font-size: 2.2rem;
+    /* Card-red: horizontal layout — icon left, text right */
+    .card-red {
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 16px;
     }
-
-    .form-wrapper p {
-        font-size: 0.95rem;
-    }
-
-    .checkbox-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px 15px;
-    }
-
-    /* 2 columns for checkboxes on mobile */
-
-    .banner-sub-title {
-        font-size: 2rem;
-    }
-
-    .banner-main-title {
-        font-size: 3.5rem;
-        letter-spacing: 2px;
-    }
-
-    .badge-large {
+    .card-red .icon-ring {
+        width: 44px;
+        height: 44px;
         font-size: 1.1rem;
-        padding: 8px 15px;
+        flex-shrink: 0;
+        margin: 0;
+        border-width: 2px;
     }
+    .card-red-text { flex: 1; min-width: 0; }
+    .card-red h4 { font-size: 0.9rem; margin-bottom: 3px; }
+    .card-red p  { font-size: 0.82rem; line-height: 1.5; }
 
-    .badge-small {
+    .card-white { padding: 22px 16px; }
+    .icon-ring-red { width: 55px; height: 55px; font-size: 1.4rem; }
+
+    /* Training */
+    .training-main-title {
+        font-size: 1.5rem;
+        white-space: normal !important;
+    }
+    .training-sub-title {
         font-size: 0.9rem;
-        padding: 6px 15px;
+        white-space: normal !important;
+        word-break: break-word;
+        overflow: visible;
+    }
+    .training-title-row { flex-wrap: wrap; align-items: center; }
+    .title-line-red { display: block; flex: 0 0 40px; width: 40px; max-width: 40px; }
+    .accordion-header span { font-size: 1rem; }
+
+    /* Certification */
+    .cert-main-title { font-size: 1.5rem; }
+    .cert-sub-title  { font-size: 0.9rem; }
+    .cert-list li    { font-size: 0.9rem; }
+    .registration-box { padding: 20px 16px; }
+    /* Benefits & Gallery (shared .benefits-main-title) */
+    .benefits-header        { margin-bottom: 24px; }
+    .benefits-title-row     { display: block; margin-bottom: 10px; }
+    .benefits-main-title    { display: block; font-size: 1.5rem !important; white-space: normal !important; letter-spacing: 0; }
+    .benefits-line          { display: inline-block; width: 50px; height: 4px; border-radius: 3px; vertical-align: middle; margin-left: 10px; }
+    .benefits-line--short   { margin-left: 0; margin-right: 10px; }
+    .benefits-sub-title     { font-size: 0.9rem !important; white-space: normal !important; word-break: break-word; display: block; overflow: visible; }
+    .phone-highlight { font-size: 1.6rem; }
+    .btn-reg-red { font-size: 1.2rem; padding: 13px 28px; }
+
+    /* --- RECRUITMENT FORM --- */
+    .form-wrapper {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 24px 16px !important;
+        border-radius: 0 !important;
+        box-sizing: border-box;
+    }
+    .form-wrapper h2 { font-size: 1.7rem; }
+    .form-wrapper p  { font-size: 0.9rem; }
+    .btn-submit-form { font-size: 1.1rem; padding: 14px 20px; }
+    .recruitment-banner { margin-top: 0; border-radius: 0; }
+    .recruitment-photo-col { padding: 12px; }
+    .recruitment-team-img {
+        height: auto;
+        max-height: 250px;
+    }
+    .checkbox-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px 12px;
     }
 
-    .stats-box {
-        flex-direction: column;
-        padding: 20px;
-        text-align: center;
-    }
+    /* --- GALLERY --- */
+    .gallery .grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
 
-    .stat-divider {
-        width: 80%;
-        height: 2px;
-        margin: 20px 0;
+    /* --- FOOTER --- */
+    .footer { padding: 50px 0 24px; }
+    .footer-logo { margin-bottom: 30px; }
+    .footer-logo-image {
+        height: 100px;
+        padding: 16px 30px;
     }
+    .footer-col h3 { font-size: 1rem; margin-bottom: 16px; }
 
-    .stat-col {
-        padding: 0 10px;
-    }
+    /* --- CONTAINER PADDING --- */
+    .container { padding: 0 16px; }
 
-    .stat-number {
-        font-size: 3rem;
-    }
+    /* --- BUTTONS (Touch-optimized) --- */
+    .btn        { padding: 13px 22px; font-size: 0.9rem; }
+    .btn-large  { padding: 14px 28px; font-size: 1rem; }
+    .apply-box  { padding: 12px 18px; font-size: 0.9rem; }
+}
+
+/* =================================================
+   RESPONSIVE: MAX-WIDTH 480px (Small Phones)
+   ================================================= */
+@media (max-width: 480px) {
+    .banner-main-title  { font-size: 2.2rem; }
+    .banner-sub-title   { font-size: 1.1rem; }
+    .opp-title-white    { font-size: 1.5rem; }
+    .opp-title-gold     { font-size: 1rem; }
+    .grid-4             { grid-template-columns: 1fr; }
+    .gallery .grid-4    { grid-template-columns: 1fr !important; }
+    .training-main-title { font-size: 1.3rem; }
+    .cert-main-title    { font-size: 1.6rem; }
+    .phone-highlight    { font-size: 1.4rem; }
+    .btn-gold-gradient  { font-size: 0.9rem; padding: 11px 22px; }
 }
 
 /* ----- Footer Toggle HQ ----- */
@@ -1911,6 +2269,101 @@ ul {
 
 .toggle-hq:hover {
     color: var(--white);
+}
+
+/* --- New Global Classes from Extracted Inline Styles --- */
+.benefits-header {
+    margin-bottom: 50px;
+    text-align: left;
+}
+
+.benefits-title-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 20px;
+}
+
+.benefits-title-row--reverse {
+    flex-direction: row;
+}
+
+.benefits-line {
+    height: 6px;
+    background-color: #BE1E2D;
+    flex: 1;
+    border-radius: 3px;
+}
+
+.benefits-line--short {
+    flex: 0 0 100px;
+}
+
+.benefits-main-title {
+    color: #BE1E2D; 
+    font-size: 2.8rem; 
+    font-weight: 900; 
+    margin: 0; 
+    text-transform: uppercase; 
+    letter-spacing: -1px;
+    white-space: nowrap;
+}
+
+.benefits-sub-title {
+    color: #111;
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.phone-highlight {
+    font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .title-red, .title-black, .opp-title-white, .opp-title-gold {
+        white-space: normal !important;
+        word-break: break-word;
+    }
+    
+    .benefits-main-title {
+        font-size: 2rem;
+    }
+
+    .opp-title-row {
+        gap: 12px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .opp-title-line {
+        height: 4px;
+        flex: 1 !important;
+    }
+
+    .opp-title-white {
+        font-size: 1.5rem !important;
+    }
+
+    .opp-title-gold {
+        font-size: 1rem !important;
+    }
+    
+    .phone-highlight {
+        font-size: 1.8rem;
+    }
+    
+    .form-wrapper {
+        width: 100% !important;
+        margin: 0 auto !important;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+    
+    body, html {
+        overflow-x: hidden;
+        max-width: 100vw;
+    }
 }
 
 /* ----- Custom Toast Notification ----- */
